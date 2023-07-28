@@ -17,9 +17,9 @@ class QuizBottomSheet extends StatefulWidget {
 }
 
 class _QuizBottomSheetState extends State<QuizBottomSheet> {
-  late int selectNumber;
-  late String selectDifficult;
-  late String selectType;
+  int? selectNumber;
+  String? selectDifficult;
+  String? selectType;
   final globalKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -192,7 +192,7 @@ class _QuizBottomSheetState extends State<QuizBottomSheet> {
     if (selectDifficult != null && selectNumber != null) {
       value.isLoadingg(false);
       List<Question>? listQuestion = await value.getDataQuestion(
-          selectDifficult.toLowerCase(), selectNumber, widget.id);
+          selectDifficult!.toLowerCase(), selectNumber!, widget.id);
       Provider.of<QuestionProvider>(context, listen: false).initValue();
 
       if (listQuestion?.length == 0) {
@@ -204,7 +204,7 @@ class _QuizBottomSheetState extends State<QuizBottomSheet> {
           context,
           MaterialPageRoute(
             builder: (BuildContext context) => QuizPage(
-              difficult: selectDifficult,
+              difficult: selectDifficult!,
               id: widget.id,
               listQuestion: listQuestion!,
             ),
