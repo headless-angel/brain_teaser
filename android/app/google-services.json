@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "70836965827",
+    "project_id": "appscrafts-brainteaser",
+    "storage_bucket": "appscrafts-brainteaser.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70836965827:android:c3813abe8310241bc82d76",
+        "android_client_info": {
+          "package_name": "com.example.brain_teaser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "70836965827-g4rs16r07in8abm7lnkfl8jqid4mm19r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5wvG4jW3WdgvuvuSdKa5nRA-q0RO-RRk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "70836965827-g4rs16r07in8abm7lnkfl8jqid4mm19r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
