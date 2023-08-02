@@ -3,9 +3,12 @@ import 'package:brain_teaser/provider/score_provider.dart';
 import 'package:brain_teaser/util/router.dart';
 import 'package:brain_teaser/util/router_path.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(

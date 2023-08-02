@@ -45,6 +45,8 @@ dependencies:
   path: ^1.8.3
   intl: ^0.18.1
   simple_animations: ^5.0.2
+  google_mobile_ads: ^3.0.0
+  firebase_core: ^2.15.0
   
 
 dev_dependencies:
