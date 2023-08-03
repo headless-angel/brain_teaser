@@ -34,7 +34,7 @@ class _SplashPageState extends State<SplashPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Quiz ",
+              "Prepare ",
               style: TextStyle(
                   color: Colors.white,
                   letterSpacing: 3.0,
@@ -45,7 +45,7 @@ class _SplashPageState extends State<SplashPage> {
               height: 10,
             ),
             Text(
-              "Knowledge ",
+              "for any Test",
               style: TextStyle(
                 color: Colors.white,
                 letterSpacing: 3.0,
