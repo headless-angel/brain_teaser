@@ -1,6 +1,8 @@
 import 'package:brain_teaser/model/categories.dart';
 import 'package:brain_teaser/provider/question_provider.dart';
+import 'package:brain_teaser/screen/question_page/questions.dart';
 import 'package:brain_teaser/screen/quiz_bottomsheet.dart';
+import 'package:brain_teaser/screen/quiz_screen.dart';
 import 'package:brain_teaser/util/constant.dart';
 import 'package:brain_teaser/widget/card.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +15,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Provider.of<QuestionProvider>(context, listen: false).initValue();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
@@ -31,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 50,
           ),
           Text(
-            "Home",
+            "Choose your  category",
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),
           ),
@@ -62,8 +57,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: const EdgeInsets.only(
                               bottom: 10, right: 10, left: 10),
                           child: InkWell(
-                            onTap: () => _buildBottomSheet(context,
-                                categories[index].name, categories[index].id),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => QuestionsPage()),
+                              );
+                            },
+                            // => _buildBottomSheet(context,
+                            //     categories[index].name, categories[index].id),
                             child: CardItem(
                               index: index,
                             ),
