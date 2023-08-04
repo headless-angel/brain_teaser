@@ -33,7 +33,9 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
     final String question = questionController.text;
     final List<String> options =
         optionControllers.map((controller) => controller.text).toList();
-    final String correctAnswer = correctAnswerController.text;
+    final correctAnswer = correctAnswerController.text;
+    final DateTime now = DateTime.now();
+    final int timestamp = now.millisecondsSinceEpoch;
 
     // Prepare data to be stored in Firestore
     Map<String, dynamic> questionData = {
@@ -41,6 +43,7 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
       'question': question,
       'options': options,
       'correctAnswer': correctAnswer,
+      'timestamp': timestamp,
     };
 
     // Add the question data to the Firestore collection
