@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class AddQuestionPage extends StatefulWidget {
@@ -17,6 +18,30 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
   final TextEditingController userId = TextEditingController();
   final TextEditingController password = TextEditingController();
   bool isLogin = false;
+
+  late BannerAd bannerAd;
+  bool isAdLoaded = false;
+  var adUnitId = 'ca-app-pub-3940256099942544/6300978111'; //testing ad id
+
+  initBannerAd() {
+    bannerAd = BannerAd(
+      size: AdSize.banner,
+      adUnitId: adUnitId,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            isAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+          print(error);
+        },
+      ),
+      request: const AdRequest(),
+    );
+    bannerAd.load();
+  }
 
   // void submitQuestion() {
   //   final String category = categoryController.text;
@@ -106,6 +131,13 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initBannerAd();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -170,6 +202,16 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
                       ),
                       child: Text('Submit'),
                     ),
+                    isAdLoaded == true
+                        ? Padding(
+                            padding: EdgeInsets.symmetric(vertical: 6),
+                            child: SizedBox(
+                              height: bannerAd.size.height.toDouble(),
+                              width: bannerAd.size.width.toDouble(),
+                              child: AdWidget(ad: bannerAd),
+                            ),
+                          )
+                        : const SizedBox()
                   ],
                 )
               : Column(
@@ -207,6 +249,16 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
                       ),
                       child: Text('Login'),
                     ),
+                    isAdLoaded == true
+                        ? Padding(
+                            padding: EdgeInsets.symmetric(vertical: 6),
+                            child: SizedBox(
+                              height: bannerAd.size.height.toDouble(),
+                              width: bannerAd.size.width.toDouble(),
+                              child: AdWidget(ad: bannerAd),
+                            ),
+                          )
+                        : const SizedBox()
                   ],
                 ),
         ),

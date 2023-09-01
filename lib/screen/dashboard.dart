@@ -38,7 +38,7 @@ class _DashboardPageState extends State<DashboardPage> {
         },
         items: <BottomNavigationBarItem>[
           _buildItemBottomNav(FontAwesomeIcons.home, "Home"),
-          _buildItemBottomNav(FontAwesomeIcons.history, "Point")
+          _buildItemBottomNav(FontAwesomeIcons.faceGrin, "Admin")
         ],
       ),
     );

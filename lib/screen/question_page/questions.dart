@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class QuestionsPage extends StatefulWidget {
@@ -17,6 +18,9 @@ class _QuestionsPageState extends State<QuestionsPage> {
   int currentQuestionIndex = 0;
   int answered = 0;
   List<Map<String, dynamic>> questions = [];
+  late BannerAd bannerAd;
+  bool isAdLoaded = false;
+  var adUnitId = 'ca-app-pub-3940256099942544/6300978111'; //testing ad id
 
   // Fetch questions from Firestore
   Future<void> fetchQuestions() async {
@@ -45,10 +49,31 @@ class _QuestionsPageState extends State<QuestionsPage> {
     }
   }
 
+  initBannerAd() {
+    bannerAd = BannerAd(
+      size: AdSize.banner,
+      adUnitId: adUnitId,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            isAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+          print(error);
+        },
+      ),
+      request: const AdRequest(),
+    );
+    bannerAd.load();
+  }
+
   @override
   void initState() {
     super.initState();
     fetchQuestions();
+    initBannerAd();
   }
 
   void checkAnswer(String selectedOptionIndex) {
@@ -182,6 +207,17 @@ class _QuestionsPageState extends State<QuestionsPage> {
                       },
                     ),
                   ),
+                isAdLoaded == true
+                    ? Padding(
+                        padding: EdgeInsets.symmetric(vertical: 6),
+                        child: SizedBox(
+                          height: bannerAd.size.height.toDouble(),
+                          width: bannerAd.size.width.toDouble(),
+                          child: AdWidget(ad: bannerAd),
+                        ),
+                      )
+                    : const SizedBox(),
+
                 // if (!isLoading)
                 //   Center(
                 //     child: Text(answered == 1
@@ -197,7 +233,21 @@ class _QuestionsPageState extends State<QuestionsPage> {
                   )
               ],
             )
-          : Column(),
+          : Column(
+              children: [
+                isAdLoaded == true
+                    ? Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+                        child: SizedBox(
+                          height: bannerAd.size.height.toDouble(),
+                          width: bannerAd.size.width.toDouble(),
+                          child: AdWidget(ad: bannerAd),
+                        ),
+                      )
+                    : const SizedBox()
+              ],
+            ),
       bottomNavigationBar: BottomAppBar(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
