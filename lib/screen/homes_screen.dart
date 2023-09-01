@@ -57,13 +57,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: const EdgeInsets.only(
                               bottom: 10, right: 10, left: 10),
                           child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => QuestionsPage()),
-                              );
-                            },
+                            // onTap: () {
+                            //   Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => QuestionsPage()),
+                            //   );
+                            // },
                             // => _buildBottomSheet(context,
                             //     categories[index].name, categories[index].id),
                             child: CardItem(

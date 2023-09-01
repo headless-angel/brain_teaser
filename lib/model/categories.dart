@@ -8,7 +8,7 @@ class Category {
 }
 
 final List<Category> categories = [
-  Category(9, "General Knowledge", image: 'assets/topic/image2.jpg'),
+  Category(9, "General", image: 'assets/topic/image2.jpg'),
   Category(10, "Books", image: 'assets/topic/image13.jpg'),
   Category(11, "Film", image: 'assets/topic/image5.jpg'),
   Category(12, "Music", image: 'assets/topic/image16.jpg'),

@@ -1,4 +1,5 @@
 import 'package:brain_teaser/model/categories.dart';
+import 'package:brain_teaser/screen/question_page/questions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -56,20 +57,32 @@ class _CardItemState extends State<CardItem> {
                   fit: BoxFit.cover)),
           child: Stack(
             children: <Widget>[
-              Container(
-                width: double.infinity,
-                height: 150,
-                decoration: BoxDecoration(
-                  color: Colors.black26,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Center(
-                  child: Text(
-                    categories[widget.index].name,
-                    style: TextStyle(
-                        fontSize: 19,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+              InkWell(
+                onTap: () {
+                  print(categories[widget.index].name);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => QuestionsPage(
+                              category: categories[widget.index].name,
+                            )),
+                  );
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    color: Colors.black26,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      categories[widget.index].name,
+                      style: TextStyle(
+                          fontSize: 19,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               )
