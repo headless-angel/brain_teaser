@@ -19,6 +19,33 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
   final TextEditingController password = TextEditingController();
   bool isLogin = false;
 
+  String? selectedCategory;
+  List<String> categories = [
+    'General',
+    'Books',
+    'Film',
+    'Music',
+    'Musicals & Theatres',
+    'Television',
+    'Video Games',
+    'Board Games',
+    'Science & Nature',
+    'Computer',
+    'Maths',
+    'Mythology',
+    'Sports',
+    'Geography',
+    'History',
+    'Politics',
+    'Art',
+    'Celebrities',
+    'Animals',
+    'Vehicles',
+    'Comics',
+    'Gadgets',
+    'Cartoon & Animation',
+  ];
+
   late BannerAd bannerAd;
   bool isAdLoaded = false;
   var adUnitId = 'ca-app-pub-3940256099942544/6300978111'; //testing ad id
@@ -59,7 +86,7 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
   // }
 
   void submitQuestion() async {
-    final String category = categoryController.text;
+    final String category = selectedCategory!;
     final String question = questionController.text;
     final List<String> options =
         optionControllers.map((controller) => controller.text).toList();
@@ -93,7 +120,7 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
     await FirebaseFirestore.instance.collection('questions').add(questionData);
 
     // Clear text fields after submitting
-    categoryController.clear();
+    selectedCategory = null;
     questionController.clear();
     optionControllers.forEach((controller) => controller.clear());
     correctAnswerController.clear();
@@ -132,7 +159,6 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     initBannerAd();
   }
@@ -151,10 +177,43 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    TextField(
-                      controller: categoryController,
-                      decoration: InputDecoration(labelText: 'Category'),
+                    Text(
+                      'Select Category:',
+                      style: TextStyle(fontSize: 18.0),
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                            10.0), // Adjust the radius as needed
+                        border: Border.all(color: Colors.grey),
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: DropdownButton<String>(
+                        value: selectedCategory,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedCategory = newValue;
+                          });
+                        },
+                        items: categories
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        hint: Text('Select a category'),
+                        underline: SizedBox(), // Remove the default underline
+                      ),
+                    ),
+                    SizedBox(height: 20.0),
+                    // TextField(
+                    //   controller: categoryController,
+                    //   decoration: InputDecoration(labelText: 'Category'),
+                    // ),
                     SizedBox(height: 16),
                     TextField(
                       controller: questionController,
@@ -175,7 +234,7 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
                     SizedBox(height: 32),
                     ElevatedButton(
                       onPressed: () {
-                        if (categoryController.text.toString().isNotEmpty) {
+                        if (selectedCategory.toString().isNotEmpty) {
                           if (questionController.text.toString().isNotEmpty) {
                             if (optionControllers.isNotEmpty) {
                               if (correctAnswerController.text

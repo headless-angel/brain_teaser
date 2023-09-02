@@ -1,5 +1,5 @@
 import 'package:brain_teaser/screen/homes_screen.dart';
-import 'package:brain_teaser/screen/question_page/add_questions.dart';
+import 'package:brain_teaser/screen/question_page/admin.dart';
 import 'package:brain_teaser/screen/scorescreen.dart';
 import 'package:brain_teaser/util/constant.dart';
 import 'package:flutter/material.dart';
